@@ -46,7 +46,28 @@ const FoodSchema = new mongoose.Schema({
         type:String,
         required:true,
         trim:true
+    },
+    resName:{
+        type:String,
+        required:true,
+        trim:true
+    },
+    resInfo:{
+        type:String,
+        required:true,
+        trim:true
+    },
+    resRating:{
+        type:Number,
+        required:true,
+        trim:true
+    },
+    resImg:{
+        type:String,
+        required:true,
+        trim:true
     }
+    
 },{
     timestamps:true
 })

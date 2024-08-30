@@ -2,21 +2,22 @@ const express = require("express");
 const foodSchema = require("../Schema/foodSchema");
 const foodRouter = express.Router();
 
-
 foodRouter.get("/", async (req, res) => {
-    console.log("Route hit: /foods");
     try {
-      const getAllFoods = await foodSchema.find({});
-      if (getAllFoods.length > 0) {
-        res.json(getAllFoods);
-      } else {
-        res.status(404).json({ message: "No food items found" });
-      }
+        const getAllFoods = await foodSchema.find({});
+        if (getAllFoods.length > 0) {
+            res.json({
+                getAllFoods,
+                _id:getAllFoods.map(_id => (_id.resId)),
+            });
+        } else {
+            res.status(404).json({ message: "No food items found" });
+        }
     } catch (e) {
-      console.error("Error fetching food items:", e.message);
-      res.status(500).json({ error: "Internal server error" });
+        console.error("Error fetching food items:", e.message);
+        res.status(500).json({ error: "Internal server error" });
     }
-  });
+});
 
 foodRouter.post("/",async(req,res)=>{
     try {
@@ -29,7 +30,11 @@ foodRouter.post("/",async(req,res)=>{
             prepareTiming,
             foodDes,
             foodStock,
-            resId
+            resId,
+            resName,
+            resInfo,
+            resRating,
+            resImg
         } = req.body;
 
         const addFood = await foodSchema.create({
@@ -41,7 +46,11 @@ foodRouter.post("/",async(req,res)=>{
             prepareTiming,
             foodDes,
             foodStock,
-            resId
+            resId,
+            resName,
+            resInfo,
+            resRating,
+            resImg
         })
         console.log(addFood);
         

@@ -21,7 +21,7 @@ UserRouter.post("/", async (req, res) => {
 
     const newUser = await User.create({ username, email, password });
 
-    res.json({ newUser, token });
+    res.json({ username:newUser.username ,id:newUser._id, token,});
   } catch (e) {
     console.error(e.message);
     res.status(500).json({ error: "Internal server error" });
